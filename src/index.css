@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.rdp {
+  --rdp-cell-size: 45px;
+  --rdp-accent-color: #4F46E5;
+  --rdp-background-color: #EEF2FF;
+  margin: 0;
+}
+
+.rdp-day_selected:not([disabled]) { 
+  font-weight: bold;
+  color: white;
+  background-color: var(--rdp-accent-color);
+  transition: all 0.2s ease;
+}
+
+.rdp-day_selected:hover:not([disabled]) {
+  background-color: var(--rdp-accent-color);
+  opacity: 0.9;
+}
+
+.rdp-day:hover:not([disabled]) {
+  background-color: var(--rdp-background-color);
+  transition: all 0.2s ease;
+}
+
+.calendar-container {
+  @apply flex justify-center items-center;
+}
+
+.rdp-button:hover:not([disabled]):not(.rdp-day_selected) {
+  background-color: #EEF2FF;
+  transition: all 0.2s ease;
+}
+
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
