@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { startOfYear, eachDayOfInterval, format, startOfToday, isBefore, getDay, startOfWeek, subWeeks, startOfMonth, eachMonthOfInterval } from 'date-fns';
 
 interface CalendarProps {
@@ -12,12 +12,50 @@ interface ContributionData {
 }
 
 export function Calendar({ selectedDates, onSelect }: CalendarProps) {
-  const [contributions, setContributions] = React.useState<ContributionData[]>([]);
+  const [contributions, setContributions] = useState<ContributionData[]>([]);
+  const [currentDate, setCurrentDate] = useState(() => new Date());
   
-  // Calculate static dates once
-  const today = useMemo(() => startOfToday(), []);
+  // Update current date every minute
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const now = new Date();
+      if (now.getDate() !== currentDate.getDate() || 
+          now.getMonth() !== currentDate.getMonth() || 
+          now.getFullYear() !== currentDate.getFullYear()) {
+        setCurrentDate(now);
+      }
+    }, 60000); // Check every minute
+
+    return () => clearInterval(timer);
+  }, [currentDate]);
+
+  // Calculate dates based on current date
+  const today = useMemo(() => startOfToday(), [currentDate]);
   const startDate = useMemo(() => startOfWeek(subWeeks(today, 52)), [today]);
-  
+
+  // Update contributions when date range changes
+  useEffect(() => {
+    const startTime = startDate.getTime();
+    const endTime = today.getTime();
+
+    // Filter out contributions outside the new date range
+    const validContributions = contributions.filter(
+      c => c.date.getTime() >= startTime && c.date.getTime() <= endTime
+    );
+
+    if (validContributions.length !== contributions.length) {
+      setContributions(validContributions);
+      const datesWithContributions = validContributions.reduce((acc: Date[], curr) => {
+        const dates: Date[] = [];
+        for (let i = 0; i < curr.count; i++) {
+          dates.push(curr.date);
+        }
+        return [...acc, ...dates];
+      }, []);
+      onSelect(datesWithContributions);
+    }
+  }, [startDate, today]);
+
   // Memoize the dates and weeks calculations
   const { dates, weeks, monthLabels } = useMemo(() => {
     const dates = eachDayOfInterval({
