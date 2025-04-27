@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Sitemap declaration
+Sitemap: https://githubactivitygenerator.site/sitemap.xml
+
+# Prevent indexing of build assets
+Disallow: /dist/
+Disallow: /node_modules/

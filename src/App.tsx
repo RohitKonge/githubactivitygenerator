@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Calendar } from './components/Calendar';
+import { FAQ } from './components/FAQ';
+import { Blog } from './components/Blog';
 import { GitHubCredentials } from './types';
 import { format } from 'date-fns';
 import { Toaster } from 'react-hot-toast';
-import { Github, Copy, Check, Code2, GitFork } from 'lucide-react';
+import { Github, Copy, Check, Code2, GitFork, Star, Users, Activity } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 function App() {
@@ -70,15 +72,36 @@ cd ..`;
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100">
       <Toaster position="top-right" />
+      
+      {/* Hero Section with Enhanced SEO Content */}
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <Github className="h-16 w-16 mx-auto text-indigo-600 mb-4 animate-pulse" />
           <h1 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 mb-4">
             GitHub Activity Generator
           </h1>
-          <p className="text-xl text-gray-600">
-            Generate custom GitHub activity patterns for your profile
+          <p className="text-xl text-gray-600 mb-8">
+            Create custom GitHub contribution patterns and enhance your profile visibility
           </p>
+          
+          {/* Feature Highlights */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 mb-16">
+            <div className="p-6 bg-white rounded-xl shadow-lg">
+              <Activity className="h-8 w-8 text-indigo-600 mx-auto mb-4" />
+              <h3 className="text-lg font-semibold mb-2">Custom Patterns</h3>
+              <p className="text-gray-600">Design unique contribution patterns that make your GitHub profile stand out</p>
+            </div>
+            <div className="p-6 bg-white rounded-xl shadow-lg">
+              <Users className="h-8 w-8 text-indigo-600 mx-auto mb-4" />
+              <h3 className="text-lg font-semibold mb-2">Profile Enhancement</h3>
+              <p className="text-gray-600">Improve your GitHub profile's visual appeal and professional appearance</p>
+            </div>
+            <div className="p-6 bg-white rounded-xl shadow-lg">
+              <Star className="h-8 w-8 text-indigo-600 mx-auto mb-4" />
+              <h3 className="text-lg font-semibold mb-2">Easy to Use</h3>
+              <p className="text-gray-600">Simple interface to generate and customize your GitHub activity</p>
+            </div>
+          </div>
         </div>
 
         {/* Repository Creation Instructions */}
@@ -175,6 +198,65 @@ cd ..`;
             </pre>
           </div>
         </div>
+
+        {/* FAQ Section */}
+        <FAQ />
+
+        {/* Blog Section */}
+        <Blog />
+
+        {/* Footer with SEO Links */}
+        <footer className="mt-16 border-t border-gray-200 pt-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+              <h4 className="text-lg font-semibold mb-4">About</h4>
+              <p className="text-gray-600">
+                GitHub Activity Generator helps developers create custom contribution patterns 
+                and enhance their GitHub profiles with an easy-to-use interface.
+              </p>
+            </div>
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+              <ul className="space-y-2">
+                <li><a href="#features" className="text-indigo-600 hover:text-indigo-500">Features</a></li>
+                <li><a href="#faq" className="text-indigo-600 hover:text-indigo-500">FAQ</a></li>
+                <li><a href="#blog" className="text-indigo-600 hover:text-indigo-500">Blog</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Connect</h4>
+              <ul className="space-y-2">
+                <li><a href="https://github.com" className="text-indigo-600 hover:text-indigo-500">GitHub</a></li>
+                <li><a href="mailto:contact@githubactivitygenerator.site" className="text-indigo-600 hover:text-indigo-500">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="mt-8 pt-8 border-t border-gray-200 text-center text-gray-600">
+            <p>&copy; {new Date().getFullYear()} GitHub Activity Generator. All rights reserved.</p>
+          </div>
+        </footer>
+
+        {/* Structured Data for SEO */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "GitHub Activity Generator",
+            "url": "https://githubactivitygenerator.site",
+            "description": "Create custom GitHub contribution patterns and enhance your profile visibility",
+            "applicationCategory": "DeveloperApplication",
+            "operatingSystem": "Any",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "creator": {
+              "@type": "Organization",
+              "name": "GitHub Activity Generator Team"
+            }
+          })}
+        </script>
       </div>
     </div>
   );
